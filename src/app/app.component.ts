@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Response } from '@angular/http';
 import { ServersService } from './shared/servers.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -33,6 +35,18 @@ export class AppComponent {
     this.serverService.storeServers(this.servers).subscribe(
       (response) => {
         console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  onGetServers() {
+    this.serverService.getServers().subscribe(
+      // servers is an array, returned in the observable by the map function
+      (servers: any[]) => {
+        console.log(servers);
       },
       (error) => {
         console.log(error);
