@@ -24,6 +24,25 @@ export class ServersService {
       servers, {headers: headers});
   }
 
+  getAppName() {
+    return this.http.get('https://ng-http-38096.firebaseio.com/appName.json').map(
+      (response: Response) => {
+        const data = response.json();
+        console.log(data);
+        return data;
+      },
+      (error) => {
+        return error;
+      }
+    )
+    .catch(
+      (error: Response) => {
+        console.log(error);
+        return Observable.throw('Something went wrong, unable to retrieve servers.');
+      }
+    );
+  }
+
   getServers() {
     // this alllow us to transform our data in a centralized location
     // map will allow us to manipulate our response, return data and wrap in new observable

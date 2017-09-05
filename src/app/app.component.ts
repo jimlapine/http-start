@@ -21,6 +21,9 @@ export class AppComponent {
     }
   ];
 
+  // the async pipe will handle the response from this call to the service
+  appName = this.serverService.getAppName();
+
   constructor(private serverService: ServersService) {}
 
   onAddServer(name: string) {
