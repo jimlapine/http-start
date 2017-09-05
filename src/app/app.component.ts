@@ -47,6 +47,7 @@ export class AppComponent {
       // servers is an array, returned in the observable by the map function
       (servers: any[]) => {
         console.log(servers);
+        this.servers = servers;
       },
       (error) => {
         console.log(error);

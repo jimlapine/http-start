@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 // allows us to use map
 import 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class ServersService {
   constructor(private http: Http) {}
@@ -31,11 +32,22 @@ export class ServersService {
       (response: Response) => {
         const data = response.json();
         // console.log(data);
+        // for demo purposes to show we can transform data as needed
+        // for (const server of data) {
+        //   server.name = 'FETCHED_' + server.name;
+        // }
         return data;
       },
       (error) => {
         // console.log(error);
         return error;
+      }
+    )
+    .catch(
+      // catch does not wrap its returned value in an observable, so we must do this manually
+      (error: Response) => {
+        console.log(error);
+        return Observable.throw('Something went wrong, unable to retrieve servers.');
       }
     );
   }
